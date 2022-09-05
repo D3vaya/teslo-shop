@@ -12,14 +12,16 @@ import { initialData } from "../../database/products";
 import NextLink from "next/link";
 import { ItemCounter } from "../ui";
 
-interface Props {}
-
 const productsInCart = [
   initialData.products[0],
   initialData.products[1],
   initialData.products[2],
 ];
-export const CartList: FC<Props> = () => {
+
+interface Props {
+  editable?: boolean;
+}
+export const CartList: FC<Props> = ({ editable = false }) => {
   return (
     <>
       {productsInCart.map((p) => (
@@ -29,7 +31,7 @@ export const CartList: FC<Props> = () => {
               <Link>
                 <CardActionArea>
                   <CardMedia
-                    image={`products/${p.images[0]}`}
+                    image={`/products/${p.images[0]}`}
                     component="img"
                     sx={{ borderRadius: 5 }}
                   />
@@ -43,7 +45,11 @@ export const CartList: FC<Props> = () => {
               <Typography variant="body1">
                 Talla: <strong>M</strong>
               </Typography>
-              <ItemCounter />
+              {editable ? (
+                <ItemCounter />
+              ) : (
+                <Typography variant="h5">3 items</Typography>
+              )}
             </Box>
           </Grid>
           <Grid
@@ -54,9 +60,11 @@ export const CartList: FC<Props> = () => {
             flexDirection="column"
           >
             <Typography variant="subtitle1">${p.price}</Typography>
-            <Button variant="text" color="secondary">
-              Remover
-            </Button>
+            {editable && (
+              <Button variant="text" color="secondary">
+                Remover
+              </Button>
+            )}
           </Grid>
         </Grid>
       ))}
