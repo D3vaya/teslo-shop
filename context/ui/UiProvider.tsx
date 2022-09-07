@@ -9,11 +9,10 @@ const UI_INITIAL_STATE: UiState = {
   isMenuOpen: false,
 };
 
-interface UiProviderProps {
-  children?: JSX.Element;
+interface Props {
+  children: JSX.Element | JSX.Element[];
 }
-
-export const UiProvider: FC<UiProviderProps> = ({ children }) => {
+export const UiProvider: FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(uiReducer, UI_INITIAL_STATE);
 
   const toggleSideMenu = () => {
@@ -21,7 +20,14 @@ export const UiProvider: FC<UiProviderProps> = ({ children }) => {
   };
 
   return (
-    <UiContext.Provider value={{ ...state, toggleSideMenu }}>
+    <UiContext.Provider
+      value={{
+        ...state,
+
+        // Methods
+        toggleSideMenu,
+      }}
+    >
       {children}
     </UiContext.Provider>
   );

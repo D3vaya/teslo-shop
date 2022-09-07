@@ -1,8 +1,14 @@
-import { createContext } from "react";
 
-export interface ContextProps {
-  isMenuOpen: boolean;
-  toggleSideMenu: () => void;
+
+import { createContext } from 'react';
+
+
+interface ContextProps {
+    isMenuOpen: boolean;
+
+    // Methods
+    toggleSideMenu: () => void;
 }
 
-export const UiContext = createContext({} as ContextProps);
+
+export const UiContext = createContext({} as ContextProps );
